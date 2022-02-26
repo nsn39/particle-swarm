@@ -1,14 +1,14 @@
-import pygame
 import sys
-from pygame.locals import *
 
 from gui.g_common import *
 from gui.g_graph import *
 from gui.g_particle import *
 
 class GUI_G:
-    def __init__(self, ncount: int, edges) -> None:
+    def __init__(self, ncount: int, edges: Dict[Tuple[int, int], int], particles) -> None:
         self.graph = Graph_G(ncount=ncount, edges=edges)
+        self.particles = [Particle_G(starting_node=0, nodes=self.graph.nodes, solution=particle.solution)
+                          for particle in particles]
 
         # init pygame
         pygame.init()
@@ -26,5 +26,7 @@ class GUI_G:
             # display
             self.surface.fill(color=COLOR["white"])
             self.graph.draw_graph(surface=self.surface)
+            for particle in self.particles:
+                particle.draw_particle(surface=self.surface)
             pygame.display.update()
             self.fps_clock.tick(FPS)

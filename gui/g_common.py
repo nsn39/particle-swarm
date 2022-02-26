@@ -1,4 +1,6 @@
 from math import sin, cos, pi
+import pygame
+from pygame.locals import *
 
 # constants
 COLOR = {
@@ -8,7 +10,6 @@ COLOR = {
     "blue": (0, 0, 255),
 }
 FPS = 30
-VERTICES_COUNT = 5
 SCREEN_SIZE = (800, 800)
 
 
