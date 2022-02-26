@@ -10,7 +10,9 @@ COLOR = {
     "blue": (0, 0, 255),
 }
 FPS = 30
-SCREEN_SIZE = (800, 800)
+SCREEN_HEIGHT = 1000
+SCREEN_WIDTH = 1000
+SCREEN_SIZE = (SCREEN_WIDTH, SCREEN_HEIGHT)
 
 
 def regular_polygon_points(vertex_count, radius, position) -> list:

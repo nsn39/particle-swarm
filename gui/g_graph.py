@@ -4,9 +4,9 @@ from gui.g_text import Text_G
 
 
 class Node_G:
-    def __init__(self, px: float, py: float, tag: int) -> None:
+    def __init__(self, px: float, py: float, tag: int, radius: float) -> None:
         self.vertex = (px, py)
-        self.radius = 40
+        self.radius = radius 
         self.color = COLOR["red"]
         self.neighbours = set()
 
@@ -63,11 +63,12 @@ class Graph_G:
         nodes = []
         for i in range(len(self.vertices)):
             px, py = self.vertices[i]
-            nodes.append(Node_G(px=px, py=py, tag=i))
+            nodes.append(Node_G(px=px, py=py, tag=i, radius=self.ncount * 5))
         return nodes
 
     def draw_graph(self, surface: Type[pygame.Surface]) -> None:
-        for node in self.nodes:
-            node.draw_node(surface=surface)
         for edge in self.edges:
             edge.draw_edge(surface=surface)
+        for node in self.nodes:
+            node.draw_node(surface=surface)
+        

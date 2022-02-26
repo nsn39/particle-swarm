@@ -16,6 +16,7 @@ class Graph:
 		# checks if the edge already exists
 		if not self.existsEdge(src, dest):
 			self.edges[(src, dest)] = cost
+			self.edges[(dest, src)] = cost
 			self.vertices.add(src)
 			self.vertices.add(dest)
 
@@ -23,8 +24,7 @@ class Graph:
 	# checks if exists a edge linking "src" in "dest"
 	def existsEdge(self, src, dest):
 		return (True if (src, dest) in self.edges else False)
-
-
+	
 	# shows all the links of the graph
 	def showGraph(self):
 		print('Showing the graph:\n')
@@ -48,8 +48,8 @@ class Graph:
 
 		random_paths, list_vertices = [], list(self.vertices)
 
-		initial_vertice = random.choice(list_vertices)
-		# initial_vertice = self.starting_vertex 
+		# initial_vertice = random.choice(list_vertices)
+		initial_vertice = self.starting_vertex 
 		if initial_vertice not in list_vertices:
 			print('Error: initial vertice %d not exists!' % initial_vertice)
 			sys.exit(1)
@@ -274,33 +274,34 @@ class PSO:
 if __name__ == "__main__":
 	
 	# creates the Graph instance
-	graph = Graph(amount_vertices=5, starting_vertex=0)
+	graph = CompleteGraph(amount_vertices=8, starting_vertex=0)
+	graph.generates()
 
 	# This graph is in the folder "images" of the repository.
-	graph.addEdge(0, 1, 1)
-	graph.addEdge(1, 0, 1)
-	graph.addEdge(0, 2, 3)
-	graph.addEdge(2, 0, 3)
-	graph.addEdge(0, 3, 4)
-	graph.addEdge(3, 0, 4)
-	graph.addEdge(0, 4, 5)
-	graph.addEdge(4, 0, 5)
-	graph.addEdge(1, 2, 1)
-	graph.addEdge(2, 1, 1)
-	graph.addEdge(1, 3, 4)
-	graph.addEdge(3, 1, 4)
-	graph.addEdge(1, 4, 8)
-	graph.addEdge(4, 1, 8)
-	graph.addEdge(2, 3, 5)
-	graph.addEdge(3, 2, 5)
-	graph.addEdge(2, 4, 1)
-	graph.addEdge(4, 2, 1)
-	graph.addEdge(3, 4, 2)
-	graph.addEdge(4, 3, 2)
+	# graph.addEdge(0, 1, 1)
+	# graph.addEdge(1, 0, 1)
+	# graph.addEdge(0, 2, 3)
+	# graph.addEdge(2, 0, 3)
+	# graph.addEdge(0, 3, 4)
+	# graph.addEdge(3, 0, 4)
+	# graph.addEdge(0, 4, 5)
+	# graph.addEdge(4, 0, 5)
+	# graph.addEdge(1, 2, 1)
+	# graph.addEdge(2, 1, 1)
+	# graph.addEdge(1, 3, 4)
+	# graph.addEdge(3, 1, 4)
+	# graph.addEdge(1, 4, 8)
+	# graph.addEdge(4, 1, 8)
+	# graph.addEdge(2, 3, 5)
+	# graph.addEdge(3, 2, 5)
+	# graph.addEdge(2, 4, 1)
+	# graph.addEdge(4, 2, 1)
+	# graph.addEdge(3, 4, 2)
+	# graph.addEdge(4, 3, 2)
 
 	# creates a PSO instance
 	iterations = 100
-	pso = PSO(graph, iterations=iterations, size_population=20, beta=1, alfa=0.9)
+	pso = PSO(graph, iterations=iterations, size_population=30, beta=1, alfa=0.9)
 	pso.run() # runs the PSO algorithm
 	
 	gui = GUI_G(ncount=graph.amount_vertices, edges=graph.edges, particles=pso.particles, gbest_evolutions=pso.evolutions)

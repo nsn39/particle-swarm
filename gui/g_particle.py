@@ -10,7 +10,7 @@ class Particle_G:
         self.nodes = nodes
         self.pos = nodes[starting_node].vertex
         self.curent_node = nodes[starting_node]
-        self.radius = nodes[starting_node].radius / 10
+        self.radius = 4
         self.color = COLOR["black"]
 
         self.solution_set = solution_set
