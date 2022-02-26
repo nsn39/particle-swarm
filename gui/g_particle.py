@@ -1,5 +1,3 @@
-from platform import node
-from tracemalloc import start
 from typing import List, Type
 from gui.g_graph import Graph_G, Node_G
 from gui.g_common import *
@@ -13,8 +11,8 @@ class Particle_G:
         self.radius = nodes[starting_node].radius / 10
         self.color = COLOR["black"]
 
-        self.solution_set = [list(solution) for solution in solution_set]
-        self.solution = self.solution_set[0]
+        self.solution_set = solution_set 
+        self.solution = solution_set[0]
         self.solution_index = 0
 
         self.speed = 0.1  # particle travels 1/10th of the distance in one iteration
@@ -36,7 +34,7 @@ class Particle_G:
                            center=self.pos, radius=self.radius)
 
 class Particles_G:
-    def __init__(self, particles, graph) -> None:
+    def __init__(self, particles, graph: Type[Graph_G]) -> None:
         self.particles = [Particle_G(starting_node=0, nodes=graph.nodes, solution_set=particle.solution_set)
                           for particle in particles]
         self.graph = graph
@@ -63,6 +61,6 @@ class Particles_G:
         for particle in self.particles:
             particle.next_solution()
     
-    def draw_particles(self, surface):
+    def draw_particles(self, surface: Type[pygame.Surface]):
         for particle in self.particles:
             particle.draw_particle(surface=surface)

@@ -1,5 +1,6 @@
 from operator import attrgetter
-import random, sys, time, copy
+import random, sys, copy
+from gui.g_main import *
 
 class Graph:
 
@@ -84,6 +85,9 @@ class Particle:
 
 		# current solution
 		self.solution = solution
+
+		# set to store unique solutions for the particle
+		self.solution_set = []
 
 		# best solution (fitness) it has achieved so far
 		self.pbest = solution
@@ -250,6 +254,9 @@ class PSO:
 				
 				# updates the current solution
 				particle.setCurrentSolution(solution_particle)
+				# particle.solution_set.append("".join([str(soln) for soln in solution_particle]))
+				particle.solution_set.append(solution_particle)
+				
 				# gets cost of the current solution
 				cost_current_solution = self.graph.getCostPath(solution_particle)
 				# updates the cost of the current solution
@@ -289,9 +296,12 @@ if __name__ == "__main__":
 	graph.addEdge(4, 3, 2)
 
 	# creates a PSO instance
-	pso = PSO(graph, iterations=100, size_population=10, beta=1, alfa=0.9)
+	pso = PSO(graph, iterations=100, size_population=20, beta=1, alfa=0.9)
 	pso.run() # runs the PSO algorithm
 	pso.showsParticles() # shows the particles
+	
+	gui = GUI_G(ncount=graph.amount_vertices, edges=graph.edges, particles=pso.particles)
+	gui.run()
 
 	# shows the global best particle
 	print('gbest: %s | cost: %d\n' % (pso.getGBest().getPBest(), pso.getGBest().getCostPBest()))
