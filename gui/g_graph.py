@@ -1,29 +1,43 @@
 from typing import List, Type, Dict, Tuple
 from gui.g_common import *
+from gui.g_text import Text_G
+
 
 class Node_G:
     def __init__(self, px: float, py: float, tag: int) -> None:
         self.vertex = (px, py)
-        self.tag = tag
         self.radius = 40
         self.color = COLOR["red"]
         self.neighbours = set()
 
+        self.tag = tag
+        self.tag_text = Text_G(text=str(tag), pos=(px, py), size=25,
+                               color=COLOR["white"], pos_wrt_center=True)
+
     def draw_node(self, surface: Type[pygame.Surface]) -> None:
-        pygame.draw.circle(surface=surface, color=self.color,
-                           center=self.vertex, radius=self.radius)
+        pygame.draw.circle(surface, self.color, self.vertex, self.radius)
+        self.tag_text.draw_text(surface)
 
 
 class Edge_G:
     def __init__(self, v1: tuple, v2: tuple, weight: float) -> None:
         self.start = v1
         self.end = v2
-        self.weight = weight
         self.color = COLOR["red"]
+
+        self.weight = weight
+        self.weight_text = Text_G(text=str(weight), pos=self.get_midpoint(),
+                                  size=25, color=COLOR["red"], pos_wrt_center=True)
+
+    def get_midpoint(self):
+        ax, ay = self.start
+        bx, by = self.end
+        return ((ax + bx) / 2, (ay + by) / 2)
 
     def draw_edge(self, surface: Type[pygame.Surface]):
         pygame.draw.line(surface=surface, color=self.color,
                          start_pos=self.start, end_pos=self.end)
+        self.weight_text.draw_text(surface=surface)
 
 
 class Graph_G:
