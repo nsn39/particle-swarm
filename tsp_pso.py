@@ -4,10 +4,11 @@ from gui.g_main import *
 
 class Graph:
 
-	def __init__(self, amount_vertices):
+	def __init__(self, amount_vertices, starting_vertex):
 		self.edges = {} # dictionary of edges
 		self.vertices = set() # set of vertices
 		self.amount_vertices = amount_vertices # amount of vertices
+		self.starting_vertex = starting_vertex
 
 
 	# adds a edge linking "src" in "dest" with a "cost"
@@ -48,6 +49,7 @@ class Graph:
 		random_paths, list_vertices = [], list(self.vertices)
 
 		initial_vertice = random.choice(list_vertices)
+		# initial_vertice = self.starting_vertex 
 		if initial_vertice not in list_vertices:
 			print('Error: initial vertice %d not exists!' % initial_vertice)
 			sys.exit(1)
@@ -155,6 +157,7 @@ class PSO:
 		self.particles = [] # list of particles
 		self.beta = beta # the probability that all swap operators in swap sequence (gbest - x(t-1))
 		self.alfa = alfa # the probability that all swap operators in swap sequence (pbest - x(t-1))
+		self.evolutions = []
 
 		# initialized with a group of random particles (solutions)
 		solutions = self.graph.getRandomPaths(self.size_population)
@@ -186,7 +189,6 @@ class PSO:
 
 	# shows the info of the particles
 	def showsParticles(self):
-
 		print('Showing particles...\n')
 		for particle in self.particles:
 			print('pbest: %s\t|\tcost pbest: %d\t|\tcurrent solution: %s\t|\tcost current solution: %d' \
@@ -202,6 +204,7 @@ class PSO:
 
 			# updates gbest (best particle of the population)
 			self.gbest = min(self.particles, key=attrgetter('cost_pbest_solution'))
+			self.evolutions.append(self.gbest.solution)
 
 			# for each particle in the swarm
 			for particle in self.particles:
@@ -271,7 +274,7 @@ class PSO:
 if __name__ == "__main__":
 	
 	# creates the Graph instance
-	graph = Graph(amount_vertices=5)
+	graph = Graph(amount_vertices=5, starting_vertex=0)
 
 	# This graph is in the folder "images" of the repository.
 	graph.addEdge(0, 1, 1)
@@ -296,15 +299,17 @@ if __name__ == "__main__":
 	graph.addEdge(4, 3, 2)
 
 	# creates a PSO instance
-	pso = PSO(graph, iterations=100, size_population=20, beta=1, alfa=0.9)
+	iterations = 100
+	pso = PSO(graph, iterations=iterations, size_population=20, beta=1, alfa=0.9)
 	pso.run() # runs the PSO algorithm
-	pso.showsParticles() # shows the particles
 	
-	gui = GUI_G(ncount=graph.amount_vertices, edges=graph.edges, particles=pso.particles)
+	gui = GUI_G(ncount=graph.amount_vertices, edges=graph.edges, particles=pso.particles, gbest_evolutions=pso.evolutions)
 	gui.run()
 
-	# shows the global best particle
-	print('gbest: %s | cost: %d\n' % (pso.getGBest().getPBest(), pso.getGBest().getCostPBest()))
+	print("After " + str(iterations)  + " iterations :")
+	print("---------------------------------------------------------------")
+	pso.showsParticles() # shows the particles
+	print('gbest: %s | cost: %d\n' % (pso.getGBest().getPBest(), pso.getGBest().getCostPBest())) # shows the global best particle
 
 	'''
 	# random graph
