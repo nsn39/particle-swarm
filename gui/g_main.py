@@ -21,7 +21,11 @@ class GUI_G:
             for event in pygame.event.get():
                 if event.type == QUIT:
                     pygame.quit()
-                    sys.exit()            
+                    sys.exit()           
+
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        self.particles.solve(surface=self.surface, fps_clock=self.fps_clock) 
 
             # display
             self.surface.fill(color=COLOR["white"])
