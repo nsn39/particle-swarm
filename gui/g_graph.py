@@ -1,6 +1,7 @@
 from typing import List, Type, Dict, Tuple
 from gui.g_common import *
 from gui.g_text import Text_G
+import copy
 
 
 class Node_G:
@@ -34,10 +35,12 @@ class Edge_G:
         bx, by = self.end
         return ((ax + bx) / 2, (ay + by) / 2)
 
-    def draw_edge(self, surface: Type[pygame.Surface]):
-        pygame.draw.line(surface=surface, color=self.color,
+    def draw_edge(self, surface: Type[pygame.Surface], color: Tuple[int, int, int]):
+        pygame.draw.line(surface=surface, color=color,
                          start_pos=self.start, end_pos=self.end)
         self.weight_text.draw_text(surface=surface)
+
+    
 
 
 class Graph_G:
@@ -63,12 +66,29 @@ class Graph_G:
         nodes = []
         for i in range(len(self.vertices)):
             px, py = self.vertices[i]
-            nodes.append(Node_G(px=px, py=py, tag=i, radius=self.ncount * 5))
+            nodes.append(Node_G(px=px, py=py, tag=i, radius=self.ncount * 2)) # TODO:
         return nodes
 
-    def draw_graph(self, surface: Type[pygame.Surface]) -> None:
+    def __get_edge(self, start_node, end_node):
         for edge in self.edges:
-            edge.draw_edge(surface=surface)
+            if edge.start == start_node.vertex and edge.end == end_node.vertex:
+                return edge
+        return None
+
+    def draw_graph(self, surface: Type[pygame.Surface], solution: List[int]) -> None:
+        for edge in self.edges:
+            edge.draw_edge(surface=surface, color=COLOR["white"])
+        
+        solution_copy = copy.copy(solution)
+        if len(solution_copy) > 0:
+            solution_copy.append(solution_copy[0])
+            for i in solution_copy: # handle i + 1
+                if i < self.ncount -1:
+                    start, end = self.nodes[solution_copy[i]], self.nodes[solution_copy[i+1]]
+                    edge = self.__get_edge(start, end)
+                    if edge is not None:
+                        edge.draw_edge(surface=surface, color=COLOR["gold"])
+
         for node in self.nodes:
             node.draw_node(surface=surface)
         

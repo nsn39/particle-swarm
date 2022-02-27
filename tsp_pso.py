@@ -274,7 +274,7 @@ class PSO:
 if __name__ == "__main__":
 	
 	# creates the Graph instance
-	graph = CompleteGraph(amount_vertices=5, starting_vertex=0)
+	graph = CompleteGraph(amount_vertices=10, starting_vertex=0)
 	graph.generates()
 
 	# This graph is in the folder "images" of the repository.

@@ -1,5 +1,3 @@
-import sys
-
 from gui.g_common import *
 from gui.g_graph import *
 from gui.g_particle import *
@@ -44,15 +42,17 @@ class GUI_G:
             # background
             self.surface.fill(color=COLOR["grey"])
 
-            self.graph.draw_graph(self.surface)
             self.particles.draw_particles(self.surface)
             self.iter_text.draw_updated_text(
                 self.surface, "Iteration: " + str(current_iteration))
+
             if current_iteration > 0:
                 self.gbest_text.draw_updated_text(
                     self.surface, "Global Best: " + str(self.gbest_evolutions[current_iteration]) + ", Cost: " + str(sum(self.gbest_evolutions[current_iteration])))
+                self.graph.draw_graph(self.surface, self.gbest_evolutions[current_iteration])
             else:
                 self.gbest_text.draw_text(self.surface)
+                self.graph.draw_graph(self.surface, [])
 
             pygame.display.update()
             self.fps_clock.tick(FPS)

@@ -1,8 +1,8 @@
-from turtle import pos
 from typing import List, Type
 from gui.g_graph import Graph_G, Node_G
 from gui.g_common import *
 from gui.g_text import Text_G
+
 
 
 class Particle_G:
@@ -62,7 +62,7 @@ class Particles_G:
 
                 surface.fill(color=COLOR["grey"])
 
-                self.graph.draw_graph(surface)
+                self.graph.draw_graph(surface, [])
                 self.draw_particles(surface)
                 self.iter_text.draw_text(surface)
 
