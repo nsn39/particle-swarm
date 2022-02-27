@@ -92,3 +92,20 @@ class Graph_G:
         for node in self.nodes:
             node.draw_node(surface=surface)
         
+    def draw_path(self, surface: Type[pygame.Surface], solution: List[int]) -> None:
+        # for edge in self.edges:
+        #     edge.draw_edge(surface=surface, color=COLOR["white"])
+        
+        solution_copy = copy.copy(solution)
+        if len(solution_copy) > 0:
+            solution_copy.append(solution_copy[0])
+            for i in solution_copy: # handle i + 1
+                if i < self.ncount -1:
+                    start, end = self.nodes[solution_copy[i]], self.nodes[solution_copy[i+1]]
+                    edge = self.__get_edge(start, end)
+                    if edge is not None:
+                        edge.draw_edge(surface=surface, color=COLOR["gold"])
+
+        for node in self.nodes:
+            node.draw_node(surface=surface)
+        

@@ -305,7 +305,7 @@ if __name__ == "__main__":
 	pso.run() # runs the PSO algorithm
 	
 	gui = GUI_G(ncount=graph.amount_vertices, edges=graph.edges, particles=pso.particles, gbest_evolutions=pso.evolutions)
-	gui.run()
+	gui.run_path()
 
 	print("After " + str(iterations)  + " iterations :")
 	print("---------------------------------------------------------------")
