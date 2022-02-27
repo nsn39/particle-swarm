@@ -10,8 +10,8 @@ class Particle_G:
         self.nodes = nodes
         self.pos = nodes[starting_node].vertex
         self.curent_node = nodes[starting_node]
-        self.radius = 4
-        self.color = COLOR["black"]
+        self.radius = 5
+        self.color = COLOR["gold"]
 
         self.solution_set = solution_set
         self.solution = solution_set[0]
@@ -43,7 +43,7 @@ class Particles_G:
                           for particle in particles]
         self.graph = graph
         self.iter_text = Text_G(text="Running iteration...", pos=(10, 10),
-                                size=40, color=COLOR["red"], pos_wrt_center=False)
+                                size=30, color=COLOR["white"], pos_wrt_center=False)
 
     def solve(self, surface: Type[pygame.Surface], fps_clock: Type[pygame.time.Clock]):
         node_traversal = [x for x in range(0, self.graph.ncount)]
@@ -60,7 +60,7 @@ class Particles_G:
                     if k == 9:  # particle has reached destination, update current node
                         particle.curent_node = particle.nodes[next_node_index]
 
-                surface.fill(color=COLOR["white"])
+                surface.fill(color=COLOR["grey"])
 
                 self.graph.draw_graph(surface)
                 self.draw_particles(surface)

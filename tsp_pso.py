@@ -191,7 +191,7 @@ class PSO:
 	def showsParticles(self):
 		print('Showing particles...\n')
 		for particle in self.particles:
-			print('pbest: %s\t|\tcost pbest: %d\t|\tcurrent solution: %s\t|\tcost current solution: %d' \
+			print('pbest: %s\t|\tcost pbest: %d\t|\tcurrent solution: %s\t|\tsolution cost: %d' \
 				% (str(particle.getPBest()), particle.getCostPBest(), str(particle.getCurrentSolution()),
 							particle.getCostCurrentSolution()))
 		print('')
@@ -204,7 +204,7 @@ class PSO:
 
 			# updates gbest (best particle of the population)
 			self.gbest = min(self.particles, key=attrgetter('cost_pbest_solution'))
-			self.evolutions.append(self.gbest.solution)
+			self.evolutions.append(self.gbest.getPBest())
 
 			# for each particle in the swarm
 			for particle in self.particles:
@@ -274,7 +274,7 @@ class PSO:
 if __name__ == "__main__":
 	
 	# creates the Graph instance
-	graph = CompleteGraph(amount_vertices=8, starting_vertex=0)
+	graph = CompleteGraph(amount_vertices=5, starting_vertex=0)
 	graph.generates()
 
 	# This graph is in the folder "images" of the repository.

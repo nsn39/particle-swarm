@@ -4,7 +4,7 @@ import pygame
 
 class Text_G:
     def __init__(self, text: str, pos: tuple, size: int, color: tuple, pos_wrt_center: bool) -> None:
-        self.font = pygame.font.Font(None, size)
+        self.font = pygame.font.Font(FONT_FILE, size)
         self.color = color
 
         self.text = text

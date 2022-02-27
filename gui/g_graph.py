@@ -7,12 +7,12 @@ class Node_G:
     def __init__(self, px: float, py: float, tag: int, radius: float) -> None:
         self.vertex = (px, py)
         self.radius = radius 
-        self.color = COLOR["red"]
+        self.color = COLOR["white"]
         self.neighbours = set()
 
         self.tag = tag
         self.tag_text = Text_G(text=str(tag), pos=(px, py), size=25,
-                               color=COLOR["white"], pos_wrt_center=True)
+                               color=COLOR["grey"], pos_wrt_center=True)
 
     def draw_node(self, surface: Type[pygame.Surface]) -> None:
         pygame.draw.circle(surface, self.color, self.vertex, self.radius)
@@ -23,11 +23,11 @@ class Edge_G:
     def __init__(self, v1: tuple, v2: tuple, weight: float) -> None:
         self.start = v1
         self.end = v2
-        self.color = COLOR["red"]
+        self.color = COLOR["white"]
 
         self.weight = weight
         self.weight_text = Text_G(text=str(weight), pos=self.get_midpoint(),
-                                  size=25, color=COLOR["red"], pos_wrt_center=True)
+                                  size=25, color=COLOR["white"], pos_wrt_center=True)
 
     def get_midpoint(self):
         ax, ay = self.start
@@ -48,7 +48,7 @@ class Graph_G:
             ncount, self.radius, tuple(d/2 for d in SCREEN_SIZE))
         self.nodes = self.__build_nodes()
         self.edges = self.__build_edges(edges)
-        self.color = COLOR["red"]
+        # self.color = COLOR["grey"]
         self.stroke = 2
 
     def __build_edges(self, edges: Dict[Tuple[int, int], int]) -> List[Type[Edge_G]]:

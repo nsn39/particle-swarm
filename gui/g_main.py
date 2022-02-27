@@ -18,10 +18,10 @@ class GUI_G:
         self.surface = pygame.display.set_mode(size=SCREEN_SIZE)
         self.fps_clock = pygame.time.Clock()
         self.iter_text = Text_G(text="Iteration: 0", pos=(10, 10),
-                                size=40, color=COLOR["red"], pos_wrt_center=False)
+                                size=30, color=COLOR["white"], pos_wrt_center=False)
 
-        self.gbest_text = Text_G(text="Global Best: []", pos=(10, 50), size=40,
-                                 color=COLOR["red"], pos_wrt_center=False)
+        self.gbest_text = Text_G(text="Global Best: [], Cost: 0", pos=(10, 50), size=30,
+                                 color=COLOR["white"], pos_wrt_center=False)
 
         # check imports
         if not pygame.font:
@@ -41,15 +41,18 @@ class GUI_G:
                             surface=self.surface, fps_clock=self.fps_clock)
                         current_iteration += 1
 
-            # background 
-            self.surface.fill(color=COLOR["white"])
+            # background
+            self.surface.fill(color=COLOR["grey"])
 
             self.graph.draw_graph(self.surface)
             self.particles.draw_particles(self.surface)
             self.iter_text.draw_updated_text(
                 self.surface, "Iteration: " + str(current_iteration))
-            self.gbest_text.draw_updated_text(
-                self.surface, "Global Best: " + str(self.gbest_evolutions[current_iteration]))
+            if current_iteration > 0:
+                self.gbest_text.draw_updated_text(
+                    self.surface, "Global Best: " + str(self.gbest_evolutions[current_iteration]) + ", Cost: " + str(sum(self.gbest_evolutions[current_iteration])))
+            else:
+                self.gbest_text.draw_text(self.surface)
 
             pygame.display.update()
             self.fps_clock.tick(FPS)
