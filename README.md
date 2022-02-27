@@ -28,4 +28,16 @@ Install the requirements then run the following command -\
 ├── .gitignore              # gitignore
 └── README.md               # README file
 ```
+
+## Contributors
+* [Nishan Poudel](https://github.com/nsn39/) (075BCT057)
+* [Pranjal Pokharel](https://github.com/pranjalpokharel7) (075BCT061)
+* [Sampanna Dahal](https://github.com/samD54321) (075BCT072)
+
+## Resources
+* Reference Repository - [marcoscastro: TSP_PSO](https://github.com/marcoscastro/tsp_pso)
+* Reference Paper - [Hadia, Sarman K. et al. (June, 2012). Solving City Routing Issue with Particle Swarm Optimization, International Journal of Computer Applications (0975 – 888) , vol 47.](https://www.researchgate.net/profile/Ponnuthurai-Suganthan/publication/220740497_A_discrete_particle_swarm_optimization_algorithm_for_the_generalized_traveling_salesman_problem/links/0c960525d3991a90b0000000/A-discrete-particle-swarm-optimization-algorithm-for-the-generalized-traveling-salesman-problem.pdf)
+* Video Demonstration - [Particle Swarm Optimization (PSO) - Travelling Salesman Problem (TSP) | Output](https://youtu.be/0sYx_4YBSQE)
+* Presentation - [Google Slides](https://docs.google.com/presentation/d/1v7aqXq9_44hpbD3Y2AsAGVTgxCucOlVYa0InZsIuMw0/edit?usp=sharing)
+
  
