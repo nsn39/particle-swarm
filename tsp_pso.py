@@ -1,6 +1,7 @@
 from operator import attrgetter
 import random, sys, copy
 from gui.g_main import *
+import matplotlib.pyplot as plt
 
 class Graph:
 
@@ -158,6 +159,7 @@ class PSO:
 		self.beta = beta # the probability that all swap operators in swap sequence (gbest - x(t-1))
 		self.alfa = alfa # the probability that all swap operators in swap sequence (pbest - x(t-1))
 		self.evolutions = []
+		self.annotatedEvolutions = []
 
 		# initialized with a group of random particles (solutions)
 		solutions = self.graph.getRandomPaths(self.size_population)
@@ -205,7 +207,7 @@ class PSO:
 			# updates gbest (best particle of the population)
 			self.gbest = min(self.particles, key=attrgetter('cost_pbest_solution'))
 			self.evolutions.append(self.gbest.getPBest())
-
+			self.annotatedEvolutions.append(self.gbest.getCostPBest())
 			# for each particle in the swarm
 			for particle in self.particles:
 
@@ -304,7 +306,7 @@ if __name__ == "__main__":
 	pso = PSO(graph, iterations=iterations, size_population=30, beta=1, alfa=0.9)
 	pso.run() # runs the PSO algorithm
 	
-	gui = GUI_G(ncount=graph.amount_vertices, edges=graph.edges, particles=pso.particles, gbest_evolutions=pso.evolutions)
+	gui = GUI_G(ncount=graph.amount_vertices, edges=graph.edges, particles=pso.particles, gbest_evolutions=pso.evolutions, gbest_evolutions_annotations= pso.annotatedEvolutions)
 	gui.run_path()
 
 	print("After " + str(iterations)  + " iterations :")
@@ -322,3 +324,6 @@ if __name__ == "__main__":
 	print('gbest: %s | cost: %d\n' % (pso_random_graph.getGBest().getPBest(), 
 					pso_random_graph.getGBest().getCostPBest()))
 	'''
+
+	plt.plot(range(len(pso.annotatedEvolutions)), pso.annotatedEvolutions, color = 'y')
+	plt.show()

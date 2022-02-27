@@ -5,12 +5,13 @@ from gui.g_text import *
 
 
 class GUI_G:
-    def __init__(self, ncount: int, edges: Dict[Tuple[int, int], int], particles, gbest_evolutions) -> None:
+    def __init__(self, ncount: int, edges: Dict[Tuple[int, int], int], particles, gbest_evolutions, gbest_evolutions_annotations) -> None:
         pygame.init()
 
         self.graph = Graph_G(ncount=ncount, edges=edges)
         self.particles = Particles_G(particles=particles, graph=self.graph)
         self.gbest_evolutions = gbest_evolutions
+        self.gbest_evolutions_annotations = gbest_evolutions_annotations
         self.window_open = True
 
         self.surface = pygame.display.set_mode(size=SCREEN_SIZE)
@@ -48,7 +49,7 @@ class GUI_G:
 
             if current_iteration > 0:
                 self.gbest_text.draw_updated_text(
-                    self.surface, "Global Best: " + str(self.gbest_evolutions[current_iteration]) + ", Cost: " + str(sum(self.gbest_evolutions[current_iteration])))
+                    self.surface, "Global Best: " + str(self.gbest_evolutions[current_iteration]) + ", Cost: " + str(self.gbest_evolutions_annotations[current_iteration]))
                 self.graph.draw_graph(self.surface, self.gbest_evolutions[current_iteration])
             else:
                 self.gbest_text.draw_text(self.surface)
@@ -85,7 +86,7 @@ class GUI_G:
 
             if current_iteration > 0:
                 self.gbest_text.draw_updated_text(
-                    self.surface, "Global Best: " + str(self.gbest_evolutions[current_iteration]) + ", Cost: " + str(sum(self.gbest_evolutions[current_iteration])))
+                    self.surface, "Global Best: " + str(self.gbest_evolutions[current_iteration]) + ", Cost: " + str(self.gbest_evolutions_annotations[current_iteration]))
                 self.graph.draw_path(self.surface, self.gbest_evolutions[current_iteration])
             else:
                 self.gbest_text.draw_text(self.surface)
